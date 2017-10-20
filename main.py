@@ -21,23 +21,35 @@ def split_datatset(dataset):
 			'X_val' : X_val, 
 			'y_val' : y_val}
 
-#def 
+def SamplingSameSize(largerDataSet, smallerDataSet):
+
+	sizeLarger = largerDataSet['X_train'].shape[0]
+	sizeSmaller = smallerDataSet['X_train'].shape[0]
+
+	ratio = int(sizeLarger/sizeSmaller) + 1
+	delta = sizeLarger - sizeSmaller * ratio
+
+	for key in smallerDataSet:
+		smallerDataSet[key] = np.repeat(smallerDataSet[key], ratio, axis=0)
+
+		#remove rows if necessary
+		if(delta < 0):
+			smallerDataSet[key] = smallerDataSet[key][0:delta]
+
 
 def main():
 	headers = ["f1", "f2","f3", "f4","f5", "f6","target"]
 	dataset = pd.read_csv(PATH, names = headers)
 	dataset.drop_duplicates(inplace = True)
 
-	no_cancer = dataset[dataset["target"]==0]
-	has_cancer = dataset[dataset["target"]==1]
-
-	# ToDO: make it more generic
-	has_cancer = has_cancer.append([has_cancer]*29, ignore_index=True)
-	has_cancer = has_cancer.drop(has_cancer.index[0:25])
+	noCancer  = dataset[dataset['target'] == 0]
+	hasCancer = dataset[dataset['target'] == 1]
 
 	# Split dataset 
-	no_cancer_splitted = split_datatset(no_cancer)
-	has_cancer_splitted = split_datatset(has_cancer)
+	noCancerSplitted = split_datatset(noCancer)
+	hasCancerSplitted = split_datatset(hasCancer)
+
+	SamplingSameSize(noCancerSplitted, hasCancerSplitted)
 
 	# merge dataframes
 
