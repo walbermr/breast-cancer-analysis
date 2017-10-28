@@ -4,6 +4,13 @@ from sklearn.model_selection import train_test_split
 
 PATH = "./datasets/mammography-consolidated.csv"
 
+class DataSet:
+	def __init__(self, path):
+		self.path = path
+
+	def next_batch(size):
+		pass 
+
 def split_datatset(dataset):
 	X = dataset.iloc[:, :-1].values
 	y = dataset.iloc[:, -1].values
@@ -21,7 +28,7 @@ def split_datatset(dataset):
 			'X_val' : X_val, 
 			'y_val' : y_val}
 
-def SamplingSameSize(largerDataSet, smallerDataSet):
+def UniformSampling(largerDataSet, smallerDataSet):
 
 	sizeLarger = largerDataSet['X_train'].shape[0]
 	sizeSmaller = smallerDataSet['X_train'].shape[0]
@@ -72,7 +79,7 @@ def main():
 	noCancerSplitted = split_datatset(noCancer)
 	hasCancerSplitted = split_datatset(hasCancer)
 
-	SamplingSameSize(noCancerSplitted, hasCancerSplitted)
+	UniformSampling(noCancerSplitted, hasCancerSplitted)
 
 	# Concatenating and Shuffling
 	X_train, y_train, X_test, y_test, X_val, y_val = \
@@ -83,4 +90,5 @@ def main():
 	return
 
 if __name__ == "__main__":
+	print("Aqui")
 	main()
