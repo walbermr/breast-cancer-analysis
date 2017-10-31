@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from NeuralNetwork import  *
 from sklearn.model_selection import train_test_split
 
 PATH = "./datasets/mammography-consolidated.csv"
@@ -89,35 +90,11 @@ def main():
 
 	return
 
-class NeuralNetworkGenerator:
-
-	architectures = []
-
-	def __init__(self, path):
-		self.path = path
-
-		with open(path, "r") as f:
-			qtd_archs = f.readline()
-			for _ in range(0, int(qtd_archs)):
-				num_layers, activation = f.readline().split(" ")
-				layers = f.readline().split(" ")
-				self.architectures.append((activation.replace('\n', ''), int(num_layers) + 2, list(map(int, layers))))
-
-	def evaluate_next(self, x):
-		pass
 
 if __name__ == "__main__":
 
-	nn = NeuralNetworkGenerator("nn.txt")
+	nn = NeuralNetworkGenerator("nn.txt", batch_size = 30)
 
-	print (nn.architectures[0][0])
-	print(nn.architectures[0][1])
-	print(nn.architectures[0][2])
-
-	print("Test")
-
-	print(nn.architectures[1][0])
-	print(nn.architectures[1][1])
-	print(nn.architectures[1][2])
+	nn.evaluate([], [])
 
 #	main()
