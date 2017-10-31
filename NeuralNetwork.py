@@ -1,11 +1,13 @@
 from keras.models import Sequential
 from keras.layers import Dense
+import numpy
 
 class NeuralNetworkGenerator:
 
 	architectures = []
 
 	def __init__(self, path, epochs = 150, batch_size = 10):
+
 		self.path = path
 		self.epochs = epochs
 		self.batch_size =  batch_size
@@ -23,8 +25,9 @@ class NeuralNetworkGenerator:
 
 		print("batch_size: %d epochs: %d" %(self.batch_size, self.epochs))
 
+		numpy.random.seed(7)
+		x = 1
 		for arch in self.architectures:
-
 			# Create model.
 			model = Sequential()
 
@@ -41,8 +44,11 @@ class NeuralNetworkGenerator:
 			model.compile(loss = 'binary_crossentropy', optimizer = 'adam', metrics = ['accuracy'])
 
 			# Fit the model.
-			model.fit(X, y, epochs = self.epochs, batch_size = self.batch_size)
+			history = model.fit(X, y, epochs = self.epochs, batch_size = self.batch_size)
 
 			# Evaluate the model.
 			scores = model.evaluate(X, y)
+			print("Architecture %d: " %x)
 			print("\n%s: %.2f%%" % (model.metrics_names[1], scores[1] * 100))
+			print("--------------------------------------------------------------")
+			x += 1

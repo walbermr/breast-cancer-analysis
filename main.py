@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from NeuralNetwork import  *
+from NeuralNetwork import NeuralNetworkGenerator
 from sklearn.model_selection import train_test_split
 
 PATH = "./datasets/mammography-consolidated.csv"
@@ -93,8 +93,6 @@ def main():
 
 if __name__ == "__main__":
 
-	nn = NeuralNetworkGenerator("nn.txt", batch_size = 30)
-
-	nn.evaluate([], [])
+	nn = NeuralNetworkGenerator("nn.txt", epochs = 300)
 
 #	main()
