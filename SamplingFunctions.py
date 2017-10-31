@@ -21,14 +21,18 @@ def UniformSampling(dset):
 		if delta < 0:
 			smallerdset[key] = smallerdset[key][0:delta]
 
-def KMeansSampling(data):
+def KMeansSampling(dset):
 
-	kmeans = KMeans(n_clusters = 2, random_state = 0).fit(X)
+	sizes = dset.get_datasets_sizes()
+	bigdset = dset.get_datasets()['big']
+
+
+	kmeans = KMeans(n_clusters = 2, random_state = 0).fit(bigdset)
 	under_sampling = kmeans.cluster_centers_
 
-def RandomSampling(data):
+def RandomSampling(dset):
 	pass
 
-def SMOTESampling(data):
+def SMOTESampling(dset):
 	pass
 

@@ -10,14 +10,12 @@ class DataSet:
 		self.spldataframes = {}
 
 		self.dataframes['main'] = pd.read_csv(self.path, names = headers)
-
-
 		self.dataframe.drop_duplicates(inplace = True)
 
 		self.dataframes['noCancer'] = self.select_target('main', 'target', 0)
 		self.dataframes['hasCancer'] = self.select_target('main', 'target', 1)
 
-		# Split dataset 
+		# Split dataset.
 		self.spldataframes['noCancerSplitted'] = self.split_dataframe('noCancer')
 		self.spldataframes['hasCancerSplitted'] = self.split_dataframe('hasCancer')
 
@@ -64,7 +62,7 @@ class DataSet:
 		X_train, X_val, y_train, y_val = \
 			train_test_split(X_train, y_train, test_size=1/3, random_state=42, stratify=y_train)
 
-		return __create_spl_dframe(X_train, y_train, X_test, y_test, X_val, y_val)
+		return self.__create_spl_dframe(X_train, y_train, X_test, y_test, X_val, y_val)
 
 	def ConcatenateAndShuffleDataSet(self):
 		ds1 = self.spldataframes['noCancerSplitted']
@@ -90,7 +88,7 @@ class DataSet:
 		X_val = val[:, :-1]
 		y_val = val[:, -1]
 
-		ret = __create_spl_dframe(X_train, y_train, X_test, y_test, X_val, y_val)
+		ret = self.__create_spl_dframe(X_train, y_train, X_test, y_test, X_val, y_val)
 
 		self.dataset.spldataframes['final'] = ret
 

@@ -8,6 +8,8 @@ def main():
 
 	UniformSampling(dataset)
 
+	# Colocar WITH
+
 	# Concatenating and Shuffling
 	dataset.ConcatenateAndShuffleDataSet()
 
