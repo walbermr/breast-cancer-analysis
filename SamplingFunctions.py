@@ -26,8 +26,7 @@ def KMeansSampling(dset):
 	sizes = dset.get_datasets_sizes()
 	bigdset = dset.get_datasets()['big']
 
-
-	kmeans = KMeans(n_clusters = 2, random_state = 0).fit(bigdset)
+	kmeans = KMeans(n_clusters = 2, random_state = 0).fit(bigdset["X_train"])
 	under_sampling = kmeans.cluster_centers_
 
 def RandomSampling(dset):
