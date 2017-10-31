@@ -25,12 +25,10 @@ class NeuralNetworkGenerator:
 
 		for arch in self.architectures:
 
-			i = 0
-
 			# Create model.
 			model = Sequential()
 
-			while i < len(arch['layers']):
+			for i in range(len(arch['layers'])):
 				if i == 0:
 					model.add(Dense(arch['layers'][i+1], input_dim = arch['layers'][i], activation = arch['activation']))
 					i += 1
@@ -38,8 +36,6 @@ class NeuralNetworkGenerator:
 					model.add(Dense(arch['layers'][i], activation = arch['activation']))
 				else:
 					model.add(Dense(arch['layers'][i], activation = 'sigmoid'))
-
-				i += 1
 
 			#Compile model.
 			model.compile(loss = 'binary_crossentropy', optimizer = 'adam', metrics = ['accuracy'])
@@ -50,4 +46,3 @@ class NeuralNetworkGenerator:
 			# Evaluate the model.
 			scores = model.evaluate(X, y)
 			print("\n%s: %.2f%%" % (model.metrics_names[1], scores[1] * 100))
-
