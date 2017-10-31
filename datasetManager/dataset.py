@@ -11,11 +11,16 @@ class DataSet:
 
 		self.dataframes['main'] = pd.read_csv(self.path, names = headers)
 
-		self.sampling_funcs[sampling]('noCancerSplitted', 'hasCancerSplitted')
 
+		self.dataframe.drop_duplicates(inplace = True)
 
-	def next_batch(self, size):
-		pass
+		self.dataframes['noCancer'] = self.select_target('main', 'target', 0)
+		self.dataframes['hasCancer'] = self.select_target('main', 'target', 1)
+
+		# Split dataset 
+		self.spldataframes['noCancerSplitted'] = self.split_dataframe('noCancer')
+		self.spldataframes['hasCancerSplitted'] = self.split_dataframe('hasCancer')
+
 
 	def __create_spl_dframe(a,b,c,d,e,f):
 
@@ -30,6 +35,25 @@ class DataSet:
 
 		return self.dataframes[dframe][self.dataframes[dframe][feat] == value]
 
+	def get_datasets(self):
+		sizes = self.get_datasets_sizes()
+		noCancer_size = sizes['noCancer']
+		hasCancer_size = sizes['hasCancer']
+
+		big, small = (dset.spldataframes['hasCancerSplitted'], \
+						dset.spldataframes['noCancerSplitted']) \
+						if(hasCancer_size > noCancer_size) else \
+					(dset.spldataframes['noCancerSplitted'], \
+						dset.spldataframes['hasCancerSplitted'])
+
+		return {'big': big, 'small': small}
+
+	def get_datasets_sizes(self):
+		size1 = dset.spldataframes['noCancerSplitted']['X_train'].shape[0]
+		size2 = dset.spldataframes['hasCancerSplitted']['X_train'].shape[0]
+
+		return	{'noCancer': size1, 'hasCancer': size2} 
+
 	def split_dataframe(self, dframe):
 		X = self.dataset.dataframes[dframe].iloc[:, :-1].values
 		y = self.dataset.dataframes[dframe].iloc[:, -1].values
@@ -42,7 +66,9 @@ class DataSet:
 
 		return __create_spl_dframe(X_train, y_train, X_test, y_test, X_val, y_val)
 
-	def ConcatenateAndShuffleDataSet(self, ds1, ds2):
+	def ConcatenateAndShuffleDataSet(self):
+		ds1 = self.spldataframes['noCancerSplitted']
+		ds2 = self.spldataframes['hasCancerSplitted']
 
 		X_train = np.concatenate((ds1['X_train'],ds2['X_train']), axis=0)
 		y_train = np.concatenate((ds1['y_train'],ds2['y_train']), axis=0)
@@ -64,4 +90,8 @@ class DataSet:
 		X_val = val[:, :-1]
 		y_val = val[:, -1]
 
-		return __create_spl_dframe(X_train, y_train, X_test, y_test, X_val, y_val)
+		ret = __create_spl_dframe(X_train, y_train, X_test, y_test, X_val, y_val)
+
+		self.dataset.spldataframes['final'] = ret
+
+		return ret
