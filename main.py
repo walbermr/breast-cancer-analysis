@@ -8,7 +8,7 @@ class DataSet:
 	def __init__(self, path):
 		self.path = path
 
-	def next_batch(size):
+	def next_batch(self, size):
 		pass 
 
 def split_datatset(dataset):
@@ -89,6 +89,35 @@ def main():
 
 	return
 
+class NeuralNetworkGenerator:
+
+	architectures = []
+
+	def __init__(self, path):
+		self.path = path
+
+		with open(path, "r") as f:
+			qtd_archs = f.readline()
+			for _ in range(0, int(qtd_archs)):
+				num_layers, activation = f.readline().split(" ")
+				layers = f.readline().split(" ")
+				self.architectures.append((activation.replace('\n', ''), int(num_layers) + 2, list(map(int, layers))))
+
+	def evaluate_next(self, x):
+		pass
+
 if __name__ == "__main__":
-	print("Aqui")
-	main()
+
+	nn = NeuralNetworkGenerator("nn.txt")
+
+	print (nn.architectures[0][0])
+	print(nn.architectures[0][1])
+	print(nn.architectures[0][2])
+
+	print("Test")
+
+	print(nn.architectures[1][0])
+	print(nn.architectures[1][1])
+	print(nn.architectures[1][2])
+
+#	main()
