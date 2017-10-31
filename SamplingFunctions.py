@@ -3,13 +3,9 @@ import numpy as np
 
 def UniformSampling(dset):
 
-	sizes = dset.get_datasets_sizes()
-
 	smallerdset = dset.get_datasets()['small']
-
-	(sizeLarger, sizeSmaller) = (sizes['hasCancer'], sizes['noCancer']) \
-									if (sizes['hasCancer'] > sizes['noCancer']) else \
-								(sizes['noCancer'],sizes['hasCancer'])
+	sizes = dset.get_datasets_sizes_ordered()
+	(sizeLarger, sizeSmaller) = (sizes['big'], sizes['small'])
 
 	ratio = int(sizeLarger/sizeSmaller) + 1
 	delta = sizeLarger - sizeSmaller * ratio
@@ -29,8 +25,11 @@ def KMeansSampling(dset):
 	kmeans = KMeans(n_clusters = 2, random_state = 0).fit(bigdset["X_train"])
 	under_sampling = kmeans.cluster_centers_
 
+
 def RandomSampling(dset):
-	pass
+
+	smallerdset = dset.get_datasets()['small']
+	small_size = dset.get_datasets_sizes()
 
 def SMOTESampling(dset):
 	pass

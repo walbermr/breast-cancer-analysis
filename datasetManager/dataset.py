@@ -50,7 +50,16 @@ class DataSet:
 		size1 = self.spldataframes['noCancerSplitted']['X_train'].shape[0]
 		size2 = self.spldataframes['hasCancerSplitted']['X_train'].shape[0]
 
-		return	{'noCancer': size1, 'hasCancer': size2} 
+		return	{'noCancer': size1, 'hasCancer': size2}
+
+	def get_datasets_sizes_ordered(self):
+		sizes = self.get_datasets_sizes()
+
+		(b, s) = (sizes['hasCancer'], sizes['noCancer']) \
+									if (sizes['hasCancer'] > sizes['noCancer']) else \
+								(sizes['noCancer'],sizes['hasCancer'])
+
+		return {'big': b, 'small': s}
 
 	def split_dataframe(self, dframe):
 		X = self.dataframes[dframe].iloc[:, :-1].values
