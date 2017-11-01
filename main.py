@@ -6,7 +6,7 @@ def main():
 	headers = ["f1", "f2","f3", "f4","f5", "f6","target"]
 	dataset = DataSet("./datasets/mammography-consolidated.csv", headers)
 
-	UniformSampling(dataset)
+	RandomSampling(dataset)
 
 	# Concatenating and Shuffling
 	dataset.ConcatenateAndShuffleDataSet()
