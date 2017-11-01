@@ -9,19 +9,17 @@ class DataSet:
 		self.dataframes = {}
 		self.spldataframes = {}
 
-		self.dataframes['main'] = pd.read_csv(self.path, names = headers)
-		self.dataframes['main'].drop_duplicates(inplace = True)
+		df = pd.read_csv(self.path, names = headers)
+		df.drop_duplicates(inplace = True)
 
-		self.dataframes['noCancer'] = self.select_target('main', 'target', 0)
-		self.dataframes['hasCancer'] = self.select_target('main', 'target', 1)
+		self.dataframes['noCancer'] = self.select_target(df, 'target', 0)
+		self.dataframes['hasCancer'] = self.select_target(df, 'target', 1)
 
 		# Split dataset.
 		self.spldataframes['noCancerSplitted'] = self.split_dataframe('noCancer')
 		self.spldataframes['hasCancerSplitted'] = self.split_dataframe('hasCancer')
 
-
 	def __create_spl_dframe(self, a, b, c, d, e, f):
-
 		return {'X_train' : a, 
 				'y_train' : b, 
 				'X_test' : c, 
@@ -30,8 +28,7 @@ class DataSet:
 				'y_val' : f}
 
 	def select_target(self, dframe, feat, value):
-
-		return self.dataframes[dframe][self.dataframes[dframe][feat] == value]
+		return dframe[dframe[feat] == value]
 
 	def get_datasets(self):
 		sizes = self.get_datasets_sizes()
@@ -87,7 +84,7 @@ class DataSet:
 		train = np.c_[X_train,y_train]
 		val = np.c_[X_val,y_val]
 
-		for _ in range(1,10):
+		for _ in range(0,10):
 			np.random.shuffle(train)
 			np.random.shuffle(val)
 
@@ -102,3 +99,12 @@ class DataSet:
 		self.spldataframes['final'] = ret
 
 		return ret
+
+	def get(self):
+
+		return {'X_train': [],
+		'y_train': [],
+		'X_test': [],
+		'y_test': [],
+		'X_val': [],
+		'y_val': []}

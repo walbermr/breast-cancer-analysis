@@ -1,5 +1,6 @@
 from keras.models import Sequential
 from keras.layers import Dense
+from keras.callbacks import EarlyStopping
 import numpy
 
 class NeuralNetworkGenerator:
@@ -21,7 +22,7 @@ class NeuralNetworkGenerator:
 				                           'layers' : list(map(int, layers))
 				                           })
 
-	def evaluate(self, X, y):
+	def evaluate(self, dataset):
 
 		print("batch_size: %d epochs: %d" %(self.batch_size, self.epochs))
 
@@ -40,14 +41,18 @@ class NeuralNetworkGenerator:
 				else:
 					model.add(Dense(arch['layers'][i], activation = 'sigmoid'))
 
-			#Compile model.
+			# Compile model.
 			model.compile(loss = 'binary_crossentropy', optimizer = 'adam', metrics = ['accuracy'])
 
+			# Get dataset variables
+			dset = dataset.get()
+
 			# Fit the model.
-			history = model.fit(X, y, epochs = self.epochs, batch_size = self.batch_size)
+			history = model.fit(dset['X_train'], dset['y_train'], epochs = self.epochs, batch_size = self.batch_size,
+			                    callbacks = [EarlyStopping()], validation_data = (dset['X_val'], dset['y_val']))
 
 			# Evaluate the model.
-			scores = model.evaluate(X, y)
+			scores = model.evaluate(dset['X_test'], dset['y_test'])
 			print("Architecture %d: " %x)
 			print("\n%s: %.2f%%" % (model.metrics_names[1], scores[1] * 100))
 			print("--------------------------------------------------------------")

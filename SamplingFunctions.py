@@ -18,12 +18,13 @@ def UniformSampling(dset):
 			smallerdset[key] = smallerdset[key][0:delta]
 
 def KMeansSampling(dset):
-
-	sizes = dset.get_datasets_sizes()
+	n_clusters = dset.get_datasets_sizes_ordered()['small']
 	bigdset = dset.get_datasets()['big']
 
-	kmeans = KMeans(n_clusters = 2, random_state = 0).fit(bigdset["X_train"])
-	under_sampling = kmeans.cluster_centers_
+	kmeans = KMeans(n_clusters = n_clusters, random_state = 0).fit(bigdset["X_train"])
+	Xs = kmeans.cluster_centers_
+
+	#dset.set(X = Xs)
 
 
 def RandomSampling(dset):
