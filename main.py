@@ -8,6 +8,8 @@ def main():
 
 	RandomSampling(dataset)
 
+	# Colocar WITH
+
 	# Concatenating and Shuffling
 	dataset.ConcatenateAndShuffleDataSet()
 

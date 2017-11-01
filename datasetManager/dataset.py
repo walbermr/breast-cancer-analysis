@@ -10,14 +10,12 @@ class DataSet:
 		self.spldataframes = {}
 
 		self.dataframes['main'] = pd.read_csv(self.path, names = headers)
-
-
 		self.dataframes['main'].drop_duplicates(inplace = True)
 
 		self.dataframes['noCancer'] = self.select_target('main', 'target', 0)
 		self.dataframes['hasCancer'] = self.select_target('main', 'target', 1)
 
-		# Split dataset 
+		# Split dataset.
 		self.spldataframes['noCancerSplitted'] = self.split_dataframe('noCancer')
 		self.spldataframes['hasCancerSplitted'] = self.split_dataframe('hasCancer')
 
