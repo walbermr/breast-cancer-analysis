@@ -8,7 +8,6 @@ class NeuralNetworkGenerator:
 	architectures = []
 
 	def __init__(self, path, epochs = 150, batch_size = 10):
-
 		self.path = path
 		self.epochs = epochs
 		self.batch_size =  batch_size
@@ -23,7 +22,7 @@ class NeuralNetworkGenerator:
 				                           })
 
 	def evaluate(self, dataset):
-
+		print("Evaluating achitectures: \n")
 		print("batch_size: %d epochs: %d" %(self.batch_size, self.epochs))
 
 		numpy.random.seed(7)
@@ -45,7 +44,7 @@ class NeuralNetworkGenerator:
 			model.compile(loss = 'binary_crossentropy', optimizer = 'adam', metrics = ['accuracy'])
 
 			# Get dataset variables
-			dset = dataset.get()
+			dset = dataset.get_dataset()
 
 			# Fit the model.
 			history = model.fit(dset['X_train'], dset['y_train'], epochs = self.epochs, batch_size = self.batch_size,

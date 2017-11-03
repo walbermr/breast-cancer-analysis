@@ -1,37 +1,47 @@
 from sklearn.cluster import KMeans
+from datasetManager.dataframes import *
 import numpy as np
+from random import randint
 
-def UniformSampling(dset):
+def UniformSampling(df1, df2):
+	smallerdset = get_ordered_dataframes(df1, df2)['small']
+	biggerdset = get_ordered_dataframes(df1, df2)['big']
 
-	smallerdset = dset.get_datasets()['small']
-	sizes = dset.get_datasets_sizes_ordered()
-	(sizeLarger, sizeSmaller) = (sizes['big'], sizes['small'])
+	(sizelarger, sizesmaller) = get_dataframes_sizes(biggerdset, smallerdset)
 
-	ratio = int(sizeLarger/sizeSmaller) + 1
-	delta = sizeLarger - sizeSmaller * ratio
+	ratio = int(sizelarger / sizesmaller) + 1
+	delta = sizelarger - sizesmaller * ratio
 
-	for key in smallerdset:
-		smallerdset[key] = np.repeat(smallerdset[key], ratio, axis=0)
+	for key in ['X_train', 'y_train']:
+		smallerdset[key] = np.repeat(smallerdset[key], ratio, axis = 0)
 
-		#remove rows if necessary
+		# remove rows if necessary
 		if delta < 0:
 			smallerdset[key] = smallerdset[key][0:delta]
 
-def KMeansSampling(dset):
-	n_clusters = dset.get_datasets_sizes_ordered()['small']
-	bigdset = dset.get_datasets()['big']
+	return (smallerdset, biggerdset)
 
-	kmeans = KMeans(n_clusters = n_clusters, random_state = 0).fit(bigdset["X_train"])
-	Xs = kmeans.cluster_centers_
+def KMeansSampling(df1, df2):
+	smallerdset = get_ordered_dataframes(df1, df2)['small']
+	biggerdset = get_ordered_dataframes(df1, df2)['big']
 
-	#dset.set(X = Xs)
+	(sizelarger, sizesmaller) = get_dataframes_sizes(biggerdset, smallerdset)
+	kmeans = KMeans(n_clusters = sizelarger, random_state = 0).fit(biggerdset["X_train"])
 
+	return (smallerdset, kmeans.cluster_centers_)
 
-def RandomSampling(dset):
+def RandomSampling(df1, df2):
+	smallerdset = get_ordered_dataframes(df1, df2)['small']
+	biggerdset = get_ordered_dataframes(df1, df2)['big']
 
-	smallerdset = dset.get_datasets()['small']
-	small_size = dset.get_datasets_sizes()
+	(sizelarger, sizesmaller) = get_dataframes_sizes(biggerdset, smallerdset)
+
+	for i in range(0, (sizelarger - sizesmaller)):
+		index = randint(0, sizesmaller)
+		for key in ['X_train', 'y_train']:
+			smallerdset[key] = np.append(smallerdset[key], [smallerdset[key][index]], axis = 0)
+
+	return (smallerdset, biggerdset)
 
 def SMOTESampling(dset):
 	pass
-
