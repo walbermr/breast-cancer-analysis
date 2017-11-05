@@ -2,12 +2,13 @@ from sklearn.cluster import KMeans
 from datasetManager.dataframes import *
 import numpy as np
 from random import randint
+from imblearn.over_sampling import SMOTE
 
 def UniformSampling(df1, df2):
 	smallerdset = get_ordered_dataframes(df1, df2)['small']
 	biggerdset = get_ordered_dataframes(df1, df2)['big']
 
-	(sizelarger, sizesmaller) = get_dataframes_sizes(biggerdset, smallerdset)
+	sizelarger, sizesmaller = get_dataframes_sizes(biggerdset, smallerdset)
 
 	ratio = int(sizelarger / sizesmaller) + 1
 	delta = sizelarger - sizesmaller * ratio
@@ -19,14 +20,14 @@ def UniformSampling(df1, df2):
 		if delta < 0:
 			smallerdset[key] = smallerdset[key][0:delta]
 
-	return (smallerdset, biggerdset)
+	return smallerdset, biggerdset
 
 def KMeansSampling(df1, df2):
 	smallerdset = get_ordered_dataframes(df1, df2)['small']
 	biggerdset = get_ordered_dataframes(df1, df2)['big']
 
 	(sizelarger, sizesmaller) = get_dataframes_sizes(biggerdset, smallerdset)
-	kmeans = KMeans(n_clusters = sizelarger, random_state = 0).fit(biggerdset["X_train"])
+	kmeans = KMeans(n_clusters = sizesmaller, random_state = 0).fit(biggerdset["X_train"])
 
 	return (smallerdset, kmeans.cluster_centers_)
 
@@ -41,7 +42,22 @@ def RandomSampling(df1, df2):
 		for key in ['X_train', 'y_train']:
 			smallerdset[key] = np.append(smallerdset[key], [smallerdset[key][index]], axis = 0)
 
-	return (smallerdset, biggerdset)
+	return smallerdset, biggerdset
 
-def SMOTESampling(dset):
-	pass
+def SMOTESampling(df1, df2):
+	smallerdset = get_ordered_dataframes(df1, df2)['small']
+	biggerdset = get_ordered_dataframes(df1, df2)['big']
+
+	X_train = np.concatenate((smallerdset['X_train'], biggerdset['X_train']), axis = 0)
+	y_train = np.concatenate((smallerdset['y_train'], biggerdset['y_train']), axis = 0)
+
+	X_resampled, y_resampled = SMOTE().fit_sample(X_train, y_train)
+
+	biggerdset['X_train'] = X_resampled
+	biggerdset['y_train'] = y_resampled
+
+	# Override smaller dataset with a empty array
+	smallerdset['X_train'] = np.empty([1, biggerdset['X_train'].shape[1]])[0:0, :]
+	smallerdset['y_train'] = np.array([])
+
+	return smallerdset, biggerdset

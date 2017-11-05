@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from datasetManager.dataframes import *
 from sklearn.model_selection import train_test_split
 
 class DataSet:
@@ -10,13 +11,13 @@ class DataSet:
 		main = pd.read_csv(self.path, names = headers)
 		main.drop_duplicates(inplace = True)
 
-		df1 = self.select_target(main, 'target', 0)
-		df2 = self.select_target(main, 'target', 1)
+		df1 = select_target(main, 'target', 0)
+		df2 = select_target(main, 'target', 1)
 
 		# Split dataset.
 		df1 = self.split_dataframe(df1)
 		df2 = self.split_dataframe(df2)
-		(df1, df2) = sampling(df1, df2)
+		df1, df2 = sampling(df1, df2)
 
 		self.dataframe = self.concatenate_and_shuffle_dataset(df1, df2)
 
@@ -27,9 +28,6 @@ class DataSet:
 		        'y_test': d,
 		        'X_val': e,
 		        'y_val': f}
-
-	def select_target(self, df, feat, value):
-		return df[df[feat] == value]
 
 	def split_dataframe(self, df):
 		X = df.iloc[:, :-1].values
