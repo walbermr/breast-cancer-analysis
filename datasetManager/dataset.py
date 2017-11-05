@@ -52,7 +52,7 @@ class DataSet:
 		train = np.c_[X_train, y_train]
 		val = np.c_[X_val, y_val]
 
-		for _ in range(1, 10):
+		for _ in range(0, 10):
 			np.random.shuffle(train)
 			np.random.shuffle(val)
 

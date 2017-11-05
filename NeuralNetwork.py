@@ -1,11 +1,13 @@
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.callbacks import EarlyStopping
-import numpy
+from Util import plot_training_error_curves
+import numpy as np
 
 class NeuralNetworkGenerator:
 
 	architectures = []
+	architectures_scores = []
 
 	def __init__(self, path, epochs = 150, batch_size = 10):
 		self.path = path
@@ -25,7 +27,7 @@ class NeuralNetworkGenerator:
 		print("Evaluating achitectures: \n")
 		print("batch_size: %d epochs: %d" %(self.batch_size, self.epochs))
 
-		numpy.random.seed(7)
+		np.random.seed(7)
 		x = 1
 		for arch in self.architectures:
 			# Create model.
@@ -52,7 +54,21 @@ class NeuralNetworkGenerator:
 
 			# Evaluate the model.
 			scores = model.evaluate(dset['X_test'], dset['y_test'])
+			self.architectures_scores.append(scores)
+			plot_training_error_curves(history, x)
+
 			print("Architecture %d: " %x)
 			print("\n%s: %.2f%%" % (model.metrics_names[1], scores[1] * 100))
 			print("--------------------------------------------------------------")
 			x += 1
+
+		self.store_test_scores()
+
+	def store_test_scores(self):
+		print("Storing test scores...")
+
+		i = 1
+		with open("results/output.txt", "w") as f:
+			for scores in self.architectures_scores:
+				f.write("\nArchitecture %d \n%s: %.2f%%" % (i, "accuracy", scores[1] * 100))
+				i += 1
