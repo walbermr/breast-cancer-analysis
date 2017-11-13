@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 from datasetManager.dataframes import *
 from sklearn.model_selection import train_test_split
+from sklearn.utils import shuffle
+from sklearn.preprocessing import StandardScaler
 
 class DataSet:
 	def __init__(self, path, headers, sampling):
@@ -49,10 +51,21 @@ class DataSet:
 		X_val = np.concatenate((df1['X_val'], df2['X_val']), axis = 0)
 		y_val = np.concatenate((df1['y_val'], df2['y_val']), axis = 0)
 
+		print("Before \n")
+		print(X_train[0])
+
+		scaler = StandardScaler()
+		scaler.fit(X_train)
+		X_train = scaler.transform(X_train)
+		X_test = scaler.transform(X_test)
+		X_val = scaler.transform(X_val)
+
+		print(X_train[0])
+
 		train = np.c_[X_train, y_train]
 		val = np.c_[X_val, y_val]
 
-		for _ in range(0, 10):
+		for _ in range(0, 30):
 			np.random.shuffle(train)
 			np.random.shuffle(val)
 

@@ -1,0 +1,3 @@
+
+Architecture 1 
+accuracy: 95.67% (578)

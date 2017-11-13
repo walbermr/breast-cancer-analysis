@@ -1,0 +1,5 @@
+
+Architecture 1 
+accuracy: 3.26% (219)
+
+Dropout 0.2
