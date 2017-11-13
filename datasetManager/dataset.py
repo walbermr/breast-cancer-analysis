@@ -51,16 +51,12 @@ class DataSet:
 		X_val = np.concatenate((df1['X_val'], df2['X_val']), axis = 0)
 		y_val = np.concatenate((df1['y_val'], df2['y_val']), axis = 0)
 
-		print("Before \n")
-		print(X_train[0])
-
+		# SCALER
 		scaler = StandardScaler()
 		scaler.fit(X_train)
 		X_train = scaler.transform(X_train)
 		X_test = scaler.transform(X_test)
 		X_val = scaler.transform(X_val)
-
-		print(X_train[0])
 
 		train = np.c_[X_train, y_train]
 		val = np.c_[X_val, y_val]

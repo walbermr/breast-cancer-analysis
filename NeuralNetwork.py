@@ -61,7 +61,7 @@ class NeuralNetworkGenerator:
 
 			# Fit the model.
 			history = model.fit(dset['X_train'], dset['y_train'], epochs = self.epochs, batch_size = self.batch_size,
-			                    callbacks = [EarlyStopping(patience = 20)], validation_data = (dset['X_val'], dset['y_val']))
+			                    callbacks = [EarlyStopping(monitor='val_loss', patience = 10)], validation_data = (dset['X_val'], dset['y_val']))
 
 			# Evaluate the model.
 

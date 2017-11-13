@@ -29,7 +29,10 @@ def KMeansSampling(df1, df2):
 	(sizelarger, sizesmaller) = get_dataframes_sizes(biggerdset, smallerdset)
 	kmeans = KMeans(n_clusters = sizesmaller, random_state = 0).fit(biggerdset["X_train"])
 
-	return (smallerdset, kmeans.cluster_centers_)
+	biggerdset["X_train"] = kmeans.cluster_centers_
+	biggerdset["y_train"] = np.resize(biggerdset["y_train"], biggerdset["X_train"].shape[0])
+
+	return smallerdset, biggerdset
 
 def RandomSampling(df1, df2):
 	smallerdset = get_ordered_dataframes(df1, df2)['small']
