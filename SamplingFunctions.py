@@ -5,13 +5,20 @@ from random import randint
 from imblearn.over_sampling import SMOTE
 
 def UniformSampling(df1, df2):
-	smallerdset = get_ordered_dataframes(df1, df2)['small']
-	biggerdset = get_ordered_dataframes(df1, df2)['big']
+
+	ordered_dsets = get_ordered_dataframes(df1, df2)
+
+	smallerdset = ordered_dsets['small']
+	biggerdset = ordered_dsets['big']
 
 	sizelarger, sizesmaller = get_dataframes_sizes(biggerdset, smallerdset)
 
+	print("sizelarger: %d; sizesmaller: %d" %(sizelarger, sizesmaller))
+
 	ratio = int(sizelarger / sizesmaller) + 1
-	delta = sizelarger - sizesmaller * ratio
+	delta = sizelarger - (sizesmaller * ratio)
+
+	print("Ratio: %d; Delta: %d" %(ratio, delta))
 
 	for key in ['X_train', 'y_train']:
 		smallerdset[key] = np.repeat(smallerdset[key], ratio, axis = 0)

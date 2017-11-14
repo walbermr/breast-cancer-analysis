@@ -19,17 +19,18 @@ class DataSet:
 		# Split dataset.
 		df1 = self.split_dataframe(df1)
 		df2 = self.split_dataframe(df2)
+
 		df1, df2 = sampling(df1, df2)
 
 		self.dataframe = self.concatenate_and_shuffle_dataset(df1, df2)
 
 	def __create_spl_dframe(self, a, b, c, d, e, f):
 		return {'X_train': a,
-		        'y_train': b,
-		        'X_test': c,
-		        'y_test': d,
-		        'X_val': e,
-		        'y_val': f}
+				'y_train': b,
+				'X_test': c,
+				'y_test': d,
+				'X_val': e,
+				'y_val': f}
 
 	def split_dataframe(self, df):
 		X = df.iloc[:, :-1].values

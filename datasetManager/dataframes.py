@@ -13,7 +13,7 @@ def get_ordered_dataframes(df1, df2):
 					if(df2_size > df1_size) else \
 				 (df1, df2)
 
-	return {'big': big, 'small': small}
+	return {'big': big.copy(), 'small': small.copy()}
 
 def get_dataframes_sizes(df1, df2):
 	size1 = df1['X_train'].shape[0]
