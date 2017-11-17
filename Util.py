@@ -84,3 +84,11 @@ def plot_scatter_matrix(dset, hue):
 	g.fig.get_children()[-1].set_bbox_to_anchor((1.1, 0.5, 0, 0))
 	g.savefig("./results/dset_scat_matrix.png")
 
+def plot_boxPlot(dset):
+	plt.figure()
+	axes = dset.boxplot(by='target', figsize=(12, 6), return_type='axes')
+	for ax in axes:
+		ax.set_ylim(-1.4, 10)
+	
+	plt.savefig("./results/dset_boxplot.png")
+
