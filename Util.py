@@ -5,7 +5,7 @@ import warnings # current version of seaborn generates a bunch of warnings that 
 warnings.filterwarnings("ignore")
 import seaborn as sns
 import matplotlib.pyplot as plt
-sns.set(style="white", color_codes=True)
+sns.set(color_codes=True)
 
 
 
@@ -80,6 +80,7 @@ def plot_roc_curve(y_test, y_pred, arch_idx = None):
 	fig.savefig(file)
 
 def plot_scatter_matrix(dset, hue):
-	fig = sns.pairplot(dset, hue=hue)
-	fig.savefig("./results/dset_scat_matrix.png")
+	g = sns.pairplot(dset, hue=hue, vars=["f1", "f2", "f3", "f4", "f5", "f6"], markers=["o", "x"])
+	g.fig.get_children()[-1].set_bbox_to_anchor((1.1, 0.5, 0, 0))
+	g.savefig("./results/dset_scat_matrix.png")
 
