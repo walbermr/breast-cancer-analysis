@@ -9,5 +9,6 @@ dependencies:
 - matplotlib
 - tensorflow
 - keras
+- seaborn
 prefix: /anaconda3/envs/redes_neurais
 

@@ -1,12 +1,16 @@
-from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import Dropout
-from keras.callbacks import EarlyStopping
-from Util import plot_training_error_curves, extract_final_losses
+from keras.models import Sequential
 from keras.regularizers import l2, l1
+from keras.callbacks import EarlyStopping
+from Util import *
 
-from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score, roc_auc_score
+from sklearn.metrics import roc_curve, recall_score, precision_score, f1_score
+from sklearn.metrics import accuracy_score, roc_auc_score, confusion_matrix
+
 import numpy as np
+
+import matplotlib.pyplot as plt
 
 class NeuralNetworkGenerator:
 
@@ -64,8 +68,15 @@ class NeuralNetworkGenerator:
 			y_pred_class = model.predict_classes(dset['X_test'], verbose = 0)
 
 			plot_training_error_curves(history)
+			plot_roc_curve(dset['y_test'], y_pred)
+
+
 			losses = extract_final_losses(history)
+
 			print()
+
+			print('Confusion matrix:')
+			print(confusion_matrix(dset['y_test'], y_pred_class))
 			print("{metric:<18}{value:.4f}".format(metric = "Train Loss:", value = losses['train_loss']))
 			print("{metric:<18}{value:.4f}".format(metric = "Validation Loss:", value = losses['val_loss']))
 			print("{metric:<18}{value:.4f}".format(metric = "Accuracy:", value = accuracy_score(dset['y_test'], y_pred_class)))

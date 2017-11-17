@@ -4,6 +4,7 @@ from datasetManager.dataframes import *
 from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 from sklearn.preprocessing import StandardScaler
+from Util import plot_scatter_matrix
 
 class DataSet:
 	def __init__(self, path, headers, sampling):
@@ -12,6 +13,8 @@ class DataSet:
 
 		main = pd.read_csv(self.path, names = headers)
 		main.drop_duplicates(inplace = True)
+
+		plot_scatter_matrix(main, 'target')
 
 		df1 = select_target(main, 'target', 0)
 		df2 = select_target(main, 'target', 1)

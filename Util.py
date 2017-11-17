@@ -1,5 +1,13 @@
 import numpy as np
+from sklearn.metrics import roc_curve
+
+import warnings # current version of seaborn generates a bunch of warnings that we'll ignore
+warnings.filterwarnings("ignore")
+import seaborn as sns
 import matplotlib.pyplot as plt
+sns.set(style="white", color_codes=True)
+
+
 
 def extract_final_losses(history):
 	"""Função para extrair o melhor loss de treino e validação.
@@ -44,3 +52,34 @@ def plot_training_error_curves(history, arch_idx = None):
 	file = "results/" + file
 
 	fig.savefig(file)
+
+def plot_roc_curve(y_test, y_pred, arch_idx = None):
+	"""Função para plotar a curva ROC da rede neural.
+
+	Argumento(s):
+	history -- Objeto retornado pela função fit do keras.
+
+	Retorno:
+	A função gera o gráfico da ROC da rede e retorna None.
+	"""
+	print("Ploting ROC curve...")
+	fpr_net, tpr_net, _ = roc_curve(y_test, y_pred)
+
+	fig, ax = plt.subplots()
+	ax.plot([0, 1], [0, 1], 'k--')
+	ax.plot(fpr_net, tpr_net, label='net1')
+	ax.set(title = 'ROC Curve', xlabel = 'False positive rate', ylabel = 'True positive rate')
+
+	#plt.show()
+	file = "roc.png"
+	if arch_idx:
+		file = "arch_" + str(arch_idx) + "_" + file
+
+	file = "results/" + file
+
+	fig.savefig(file)
+
+def plot_scatter_matrix(dset, hue):
+	fig = sns.pairplot(dset, hue=hue)
+	fig.savefig("./results/dset_scat_matrix.png")
+
