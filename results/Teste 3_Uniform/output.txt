@@ -1,5 +1,0 @@
-
-Architecture 1 
-accuracy: 96.74% (199)
-
-Drpoout 0.2
