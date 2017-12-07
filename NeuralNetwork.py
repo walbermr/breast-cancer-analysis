@@ -61,7 +61,7 @@ class NeuralNetworkGenerator:
 			                    callbacks = [EarlyStopping(patience = 50)], validation_data = (dset['X_val'], dset['y_val']))
 
 			# Evaluate the model.
-			#scores = model.evaluate(dset['X_test'], dset['y_test'])
+			scores = model.evaluate(dset['X_test'], dset['y_test'])
 			#self.architectures_scores.append((scores, len(history.history['loss'])))
 
 			y_pred = model.predict(dset['X_test'])
@@ -79,6 +79,7 @@ class NeuralNetworkGenerator:
 			print(confusion_matrix(dset['y_test'], y_pred_class))
 			print("{metric:<18}{value:.4f}".format(metric = "Train Loss:", value = losses['train_loss']))
 			print("{metric:<18}{value:.4f}".format(metric = "Validation Loss:", value = losses['val_loss']))
+			print("{metric:<18}{value:.4f}".format(metric = "Test Loss:", value = scores[0]))
 			print("{metric:<18}{value:.4f}".format(metric = "Accuracy:", value = accuracy_score(dset['y_test'], y_pred_class)))
 			print("{metric:<18}{value:.4f}".format(metric = "Recall:", value = recall_score(dset['y_test'], y_pred_class)))
 			print("{metric:<18}{value:.4f}".format(metric = "Precision:", value = precision_score(dset['y_test'], y_pred_class)))
