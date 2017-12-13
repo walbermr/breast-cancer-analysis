@@ -26,14 +26,25 @@ We tested several different architectures (we changed number of hidden layers, n
 This arquicteture consists of one hidden layer with 16 neurons and ReLU[4] activation function.
 We tried this arquicteture at first with no regularization. After that, we explored some regularizations to make the trainning more stable and trying get better results.
 
-	* 
+ * 0 regularization
 
-	*
+ ![1L16N-RELUa](https://github.com/wmr1/breast-cancer-analysis/blob/master/images/1L16N-RELUa.png)
 
-2. 1L32N-RELU arquicteture
+ Train Loss:       	0.0717
+ Validation Loss:  	0.1422
+ Test Loss: 		0.1346
+ Accuracy:         	0.9638
+ Recall:           	0.8281
+ Precision:        	0.4690
+ F1:               	0.5989
+ AUROC:            	0.9506
 
+ * 0.002 L2 regularization
 
-3. 1L32N-SIGMOID
+2. 1L32N-RELU arquicteture (0.002 L2 regularization)
+	
+
+3. 1L32N-SIGMOID (0 regularization)
 
 
 # References
