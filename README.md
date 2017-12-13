@@ -22,17 +22,18 @@ Follow the steps:
 We tested several different architectures (we changed number of hidden layers, number of neurons, activation function, optimizer, and regularization), those which presented the bests results were chosen trying to get better results after different improvements. Most of tested architectures were ommited here in order to keep this report brief. 
 
 1. 1L16N-RELU arquicteture
+
 This arquicteture consists of one hidden layer with 16 neurons and ReLU[4] activation function.
-We tried this arquicteture at firt with no regularization. After that, we explored some regularizations to make the trainning more stable and trying get better results.
+We tried this arquicteture at first with no regularization. After that, we explored some regularizations to make the trainning more stable and trying get better results.
 
-* 
+	* 
 
-*
+	*
 
-2.  
+2. 1L32N-RELU arquicteture
 
 
-3. 
+3. 1L32N-SIGMOID
 
 
 # References
