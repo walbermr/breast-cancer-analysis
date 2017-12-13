@@ -76,7 +76,7 @@ We tried this arquicteture at first with no regularization. After that, we explo
 
 # References
 
-[1] https://keras.io <br />
-[2] https://pandas.pydata.org <br />
-[3]	http://scikit-learn.org <br />
+[1] Keras. https://keras.io <br />
+[2] Pandas. https://pandas.pydata.org <br />
+[3]	scikit-lean. http://scikit-learn.org <br />
 [4] Krizhevsky, Alex, Ilya Sutskever, and Geoffrey E. Hinton. "Imagenet classification with deep convolutional neural networks." Advances in neural information processing systems. 2012.
