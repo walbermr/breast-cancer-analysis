@@ -54,9 +54,25 @@ We tried this arquicteture at first with no regularization. After that, we explo
 
 ![1L32N-RELUb](https://github.com/wmr1/breast-cancer-analysis/blob/master/images/1L32N-RELUb.png)	
 
+ Train Loss:       	0.0538
+ Validation Loss:  	0.1192
+ Test Loss: 		0.1191
+ Accuracy:         	0.9740
+ Recall:           		0.7969
+ F1:               		0.6667
+ AUROC:            	0.9100
+
 3. 1L32N-SIGMOID (0 regularization)
 
 ![1L32N-SIGMOID](https://github.com/wmr1/breast-cancer-analysis/blob/master/images/1L32N-SIGMOID.png)
+
+ Train Loss:       	0.0789
+ Validation Loss:  	0.1591
+ Test Loss:		0.2040
+ Accuracy:         	0.9603
+ Recall:           		0.8438
+ F1:               		0.5806
+ AUROC:            	0.9428
 
 # References
 
