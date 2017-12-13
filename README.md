@@ -30,14 +30,13 @@ We tried this arquicteture at first with no regularization. After that, we explo
 
  ![1L16N-RELUa](https://github.com/wmr1/breast-cancer-analysis/blob/master/images/1L16N-RELUa.png)
 
- Train Loss:       	0.0717 <br/>
- Validation Loss:  	0.1422 <br/>
- Test Loss: 		0.1346 <br/>
- Accuracy:         	0.9638 <br/>
- Recall:           	0.8281 <br/>
- Precision:        	0.4690 <br/>
- F1:               	0.5989 <br/>
- AUROC:            	0.9506 <br/>
+  Train Loss:       	0.0717
+  Validation Loss:  	0.1422
+  Test Loss: 		    0.1346
+  Accuracy:         	0.9638
+  Recall:           	0.8281
+  F1:               	0.5989
+  AUROC:            	0.9506 <br />
 
  * 0.002 L2 regularization
 
