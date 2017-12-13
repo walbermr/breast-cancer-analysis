@@ -40,15 +40,27 @@ We tried this arquicteture at first with no regularization. After that, we explo
 
  * 0.002 L2 regularization
 
+ ![1L16N-RELUb](https://github.com/wmr1/breast-cancer-analysis/blob/master/images/1L16N-RELUb.png)
+
+ Train Loss:       	0.0538
+ Validation Loss:  	0.1192
+ Test Loss: 		0.1191
+ Accuracy:         	0.9740
+ Recall:           		0.7969
+ F1:               		0.6667
+ AUROC:            	0.9100
+
 2. 1L32N-RELU arquicteture (0.002 L2 regularization)
-	
+
+![1L32N-RELUb](https://github.com/wmr1/breast-cancer-analysis/blob/master/images/1L32N-RELUb.png)	
 
 3. 1L32N-SIGMOID (0 regularization)
 
+![1L32N-SIGMOID](https://github.com/wmr1/breast-cancer-analysis/blob/master/images/1L32N-SIGMOID.png)
 
 # References
 
-[1] https://keras.io
-[2] https://pandas.pydata.org
-[3]	http://scikit-learn.org
+[1] https://keras.io <br />
+[2] https://pandas.pydata.org <br />
+[3]	http://scikit-learn.org <br />
 [4] Krizhevsky, Alex, Ilya Sutskever, and Geoffrey E. Hinton. "Imagenet classification with deep convolutional neural networks." Advances in neural information processing systems. 2012.
