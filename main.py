@@ -7,7 +7,7 @@ def main():
 	dataset = DataSet("./datasets/mammography-consolidated.csv", headers, UniformSampling)
 
 	# Build Model
-	nn = NeuralNetworkGenerator("nn.txt", epochs = 600)
+	nn = NeuralNetworkGenerator("input/nn.txt", epochs = 600)
 	nn.evaluate(dataset)
 
 if __name__ == "__main__":

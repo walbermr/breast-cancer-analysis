@@ -10,29 +10,12 @@ import matplotlib as mpl
 
 
 def extract_final_losses(history):
-	"""Função para extrair o melhor loss de treino e validação.
-
-	Argumento(s):
-	history -- Objeto retornado pela função fit do keras.
-
-	Retorno:
-	Dicionário contendo o melhor loss de treino e de validação baseado
-	no menor loss de validação.
-	"""
 	train_loss = history.history['loss']
 	val_loss = history.history['val_loss']
 	idx_min_val_loss = np.argmin(val_loss)
 	return {'train_loss': train_loss[idx_min_val_loss], 'val_loss': val_loss[idx_min_val_loss]}
 
 def plot_training_error_curves(history, arch_idx = None):
-	"""Função para plotar as curvas de erro do treinamento da rede neural.
-
-	Argumento(s):
-	history -- Objeto retornado pela função fit do keras.
-
-	Retorno:
-	A função gera o gráfico do treino da rede e retorna None.
-	"""
 	print("Ploting training error curves...")
 
 	train_loss = history.history['loss']
@@ -56,14 +39,6 @@ def plot_training_error_curves(history, arch_idx = None):
 	fig.savefig(file)
 
 def plot_roc_curve(y_test, y_pred, arch_idx = None):
-	"""Função para plotar a curva ROC da rede neural.
-
-	Argumento(s):
-	history -- Objeto retornado pela função fit do keras.
-
-	Retorno:
-	A função gera o gráfico da ROC da rede e retorna None.
-	"""
 	print("Ploting ROC curve...")
 	fpr_net, tpr_net, _ = roc_curve(y_test, y_pred)
 
