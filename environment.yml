@@ -1,4 +1,4 @@
-name: redes_neurais
+name: breast_cancer_analysis
 channels:
 - defaults
 dependencies:
@@ -10,5 +10,5 @@ dependencies:
 - tensorflow
 - keras
 - seaborn
-prefix: /anaconda3/envs/redes_neurais
+prefix: /anaconda3/envs/breast_cancer_analysis
 
