@@ -1,6 +1,6 @@
 # Breast Cancer Analysis
 
-We used machine learning algorithms trying to learn patterns of carcinogenic individuals. The analyzed dataset contains features extracted from breast image exams and the target which indicates if the individual was diagnosed with cancer or not. This project was developed in Python using Keras, Pandas and scikit-learn libraries.
+We used machine learning algorithms to build a classification model which learn patterns of carcinogenic individuals and predicts if a new individual has or no cancer. The analyzed dataset contains about 2000 lines with 6 different features extracted from breast image exams and the target which indicates if the individual was diagnosed with cancer or not. This project was developed in Python using Keras, Pandas and scikit-learn libraries.
 
 # Running
 
