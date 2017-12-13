@@ -1,12 +1,12 @@
-# redes_neurais
+# Breast Cancer Analysis
 Projeto de redes neurais muito bonito. :)
 
 *topzera, very topster*
 
-# como faço para rodar?
+# Running
 
-Siga os passos abaixo:
+Follow the steps:
 
-$ conda env create -f environment.yml <br />
-$ activate "nome do ambiente" <br />
-$ python main.py
+	$ conda env create -f environment.yml <br />
+	$ activate "nome do ambiente" <br />
+	$ python main.py
